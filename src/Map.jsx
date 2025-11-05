@@ -7,12 +7,11 @@ import {
 } from "react-leaflet";
 import { Button } from "@mui/material";
 import plate_boundaries from "./assets/plate_boundaries.geojson.json";
-import data from "./assets/4.5_week.geojson.json";
 
-export const Map = ({ size, setFocussedEarthquake }) => {
-  const earthquakes = data.features;
+export const Map = ({ size, setFocussedEarthquake, erdbeben }) => {
+  const earthquakes = erdbeben.features || [];
 
-  return (
+  return earthquakes && earthquakes.length > 0 ? (
     <MapContainer
       center={[47.5, 7.5]}
       zoom={2}
@@ -47,5 +46,7 @@ export const Map = ({ size, setFocussedEarthquake }) => {
         </CircleMarker>
       ))}
     </MapContainer>
+  ) : (
+    <div>Keine Erdbebendaten verfügbar</div>
   );
 };
